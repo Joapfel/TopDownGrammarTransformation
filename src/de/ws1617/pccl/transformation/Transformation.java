@@ -22,18 +22,17 @@ public class Transformation {
 	 * 
 	 */
 	public void rmUnitRules() {
-		
+
 		Grammar transformed = new Grammar();
 		Lexicon lex = new Lexicon();
 
 		for (NonTerminal nt : grammar.getNonTerminals()) {
-			
 
 			for (ArrayList<Symbol> list : grammar.getRuleForLHS(nt)) {
-					
+
 				// unit
 				if (list.size() == 1) {
-					
+
 					Stack<NonTerminal> subsequentRules = new Stack<>();
 					HashSet<NonTerminal> unitLhs = new HashSet<>();
 
@@ -46,21 +45,22 @@ public class Transformation {
 						NonTerminal top = (NonTerminal) subsequentRules.pop();
 
 						if (!unitLhs.contains(top)) {
-							
-							//add it to the set
-							unitLhs.add(top);
-							
+
 							// get rhs of stack top symbol
 							for (ArrayList<Symbol> rhs : grammar.getRuleForLHS(top)) {
 
+								// add it to the set
+								unitLhs.add(top);
+
 								// if unit rule
 								if (rhs.size() == 1) {
-									//push it back on the stack
-									//to go deeper in to the structure
+
+									// push it back on the stack
+									// to go deeper in to the structure
 									NonTerminal unit = (NonTerminal) rhs.get(0);
 									subsequentRules.push(unit);
-									
-									//if not a unit rule
+
+									// if not a unit rule
 								} else {
 									// add to all Nonterminals from the Hashset
 									for (NonTerminal units : unitLhs) {
