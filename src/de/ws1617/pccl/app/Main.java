@@ -45,7 +45,8 @@ public class Main {
 			
 			Transformation tr = new Transformation(grammar, lexicon);
 			tr.rmUnitRules();
-			//tr.rmUnreachables(startSymbol);
+			tr.rmUnreachables(startSymbol);
+			
 			Grammar grTransformed = tr.getGrammar();
 			Lexicon lexTransformed = tr.getLexicon();
 			
