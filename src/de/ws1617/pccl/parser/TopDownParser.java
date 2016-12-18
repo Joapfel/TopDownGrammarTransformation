@@ -284,8 +284,20 @@ public class TopDownParser {
 
 	@Override
 	public String toString() {
-		return "TopDownParser [predictions=" + predictions + ", analysis=" + analysis + ", input="
-				+ Arrays.toString(input) + ", inputIndex=" + inputIndex + "]";
+		StringBuilder string = new StringBuilder();
+		Stack<Rule> tmp = new Stack<>();
+		while(!analysis.isEmpty()){
+			tmp.push(analysis.pop());
+		}
+		while(!tmp.isEmpty()){
+			string.append(tmp.peek().getLhs());
+			string.append(" --> ");
+			string.append(tmp.pop().getRhs());
+			string.append("\n");
+	
+		}
+		return string.toString();
 	}
 
 }
+
